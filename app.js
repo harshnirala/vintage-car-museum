@@ -197,24 +197,165 @@ const hallsData = {
     }
 };
 
+// Generate a procedurally unique technical schematic blueprint card for database registry cars
+function generateBlueprintDataURI(car) {
+    const hash = [...car.name].reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    
+    // Choose country-specific HSL color coordinates for blueprint accent lines
+    const country = (car.country || "").toLowerCase();
+    let h, s, l;
+    if (country === "usa") {
+        h = 15 + (hash % 15);      // Warm copper / orange-red
+        s = 55;
+        l = 55;
+    } else if (country === "japan") {
+        h = 44 + (hash % 12);      // Gold / amber
+        s = 50;
+        l = 60;
+    } else if (country === "germany") {
+        h = 200 + (hash % 15);     // Muted silver-blue
+        s = 15;
+        l = 65;
+    } else if (country === "united kingdom") {
+        h = 135 + (hash % 20);     // British racing green
+        s = 35;
+        l = 50;
+    } else {
+        h = 215 + (hash % 20);     // Technical cobalt blue
+        s = 50;
+        l = 55;
+    }
+    
+    const accentColor = `hsl(${h}, ${s}%, ${l}%)`;
+    
+    // Base silhouette paths and wheel configurations
+    let pathD = "";
+    let wheel1Cx_orig = 55;
+    let wheel2Cx_orig = 145;
+    let wheelCy_orig = 59;
+    let wheelR = 6;
+    
+    // Extract specs for scaling and text
+    const power = car.powerVal || 100;
+    const weight = car.weightVal || 3000;
+    
+    // Procedural scaling: heavier cars are longer, more powerful cars are sleeker
+    const lengthFactor = 0.85 + Math.min(Math.max((weight - 2000) / 6000, -0.1), 0.25);
+    const heightFactor = 0.85 + Math.min(Math.max((power - 80) / 400, -0.15), 0.15);
+    
+    // Categorized chassis structures
+    if (car.category === "pioneers") {
+        pathD = "M 45 56 L 45 35 L 55 35 L 55 26 L 85 26 L 85 35 L 125 35 L 125 42 L 150 42 L 150 56 Z";
+        wheel1Cx_orig = 60;
+        wheel2Cx_orig = 140;
+        wheelCy_orig = 59;
+        wheelR = 10;
+    } else if (car.category === "speed-muscle") {
+        pathD = "M 30 57 L 30 48 L 36 45 L 70 45 L 85 36 L 125 36 L 145 42 L 165 46 L 170 57 Z";
+        wheel1Cx_orig = 52;
+        wheel2Cx_orig = 148;
+        wheelCy_orig = 58;
+        wheelR = 6.5;
+    } else if (car.category === "golden-era") {
+        pathD = "M 25 56 L 25 48 L 35 46 L 40 44 L 80 44 L 85 32 L 130 32 L 140 46 L 165 46 L 175 48 L 175 56 Z";
+        wheel1Cx_orig = 50;
+        wheel2Cx_orig = 150;
+        wheelCy_orig = 59;
+        wheelR = 7;
+    } else {
+        pathD = "M 30 57 L 30 48 L 40 46 L 55 46 L 70 38 L 130 38 L 145 46 L 165 46 L 170 57 Z";
+        wheel1Cx_orig = 52;
+        wheel2Cx_orig = 148;
+        wheelCy_orig = 58;
+        wheelR = 6;
+    }
+    
+    // Compute wheelbase dynamically based on length scaling
+    const wheel1Cx = (100 + (wheel1Cx_orig - 100) * lengthFactor).toFixed(1);
+    const wheel2Cx = (100 + (wheel2Cx_orig - 100) * lengthFactor).toFixed(1);
+    const wheelCy = (52 + (wheelCy_orig - 52) * heightFactor).toFixed(1);
+    const dynamicWheelbase = (2200 + (weight % 800) + Math.round((lengthFactor - 1) * 300));
+    
+    const catalogID = `REG-L-EQ-${hash.toString(16).toUpperCase()}`;
+    const transmissionBrief = (car.transmission || "Manual").split(" ")[0];
+    
+    // Inline SVG layout with technical metadata and grids
+    const svg = `
+    <svg width="400" height="220" viewBox="0 0 200 110" xmlns="http://www.w3.org/2000/svg" style="background:#0b0b0c; font-family:'Inter', sans-serif;">
+        <defs>
+            <pattern id="grid-${car.id}" width="10" height="10" patternUnits="userSpaceOnUse">
+                <line x1="0" y1="0" x2="10" y2="0" stroke="rgba(139, 107, 63, 0.08)" stroke-width="0.5"/>
+                <line x1="0" y1="0" x2="0" y2="10" stroke="rgba(139, 107, 63, 0.08)" stroke-width="0.5"/>
+            </pattern>
+        </defs>
+        
+        <!-- Technical Grid Underlay -->
+        <rect width="200" height="110" fill="url(#grid-${car.id})"/>
+        
+        <!-- Framing Lines -->
+        <rect x="3" y="3" width="194" height="104" fill="none" stroke="${accentColor}" stroke-width="0.5" stroke-opacity="0.3"/>
+        <rect x="5" y="5" width="190" height="100" fill="none" stroke="${accentColor}" stroke-width="0.5" stroke-opacity="0.15"/>
+        
+        <!-- Blueprint Corner Crops -->
+        <path d="M 2 8 L 2 2 L 8 2" fill="none" stroke="${accentColor}" stroke-width="0.8" stroke-opacity="0.6"/>
+        <path d="M 198 8 L 198 2 L 192 2" fill="none" stroke="${accentColor}" stroke-width="0.8" stroke-opacity="0.6"/>
+        <path d="M 2 102 L 2 108 L 8 108" fill="none" stroke="${accentColor}" stroke-width="0.8" stroke-opacity="0.6"/>
+        <path d="M 198 102 L 198 108 L 192 108" fill="none" stroke="${accentColor}" stroke-width="0.8" stroke-opacity="0.6"/>
+        
+        <!-- Registry Header -->
+        <text x="10" y="14" fill="${accentColor}" font-size="5" font-family="'Cinzel', serif" font-weight="bold" letter-spacing="0.5">TECHNICAL SCHEMATIC</text>
+        <text x="190" y="14" text-anchor="end" fill="rgba(245, 235, 221, 0.4)" font-size="4" font-weight="500">REF: ${catalogID}</text>
+        <line x1="10" y1="18" x2="190" y2="18" stroke="${accentColor}" stroke-width="0.4" stroke-opacity="0.3"/>
+        
+        <!-- Scaled Chassis Profile -->
+        <g transform="translate(100, 52) scale(${lengthFactor.toFixed(2)}, ${heightFactor.toFixed(2)}) translate(-100, -52)">
+            <path d="${pathD}" fill="rgba(139, 107, 63, 0.03)" stroke="${accentColor}" stroke-width="0.8" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M 38 18 L 42 14 L 60 14 L 66 18" fill="none" stroke="${accentColor}" stroke-width="0.4" stroke-opacity="0.4" stroke-dasharray="1 1"/>
+            <line x1="${(wheel1Cx_orig + wheelR).toFixed(1)}" y1="${wheelCy_orig}" x2="${(wheel2Cx_orig - wheelR).toFixed(1)}" y2="${wheelCy_orig}" stroke="${accentColor}" stroke-width="0.5" stroke-opacity="0.4"/>
+        </g>
+        
+        <!-- Unscaled Wheels (keeps them perfectly circular) -->
+        <circle cx="${wheel1Cx}" cy="${wheelCy}" r="${wheelR}" fill="#0b0b0c" stroke="${accentColor}" stroke-width="0.8"/>
+        <circle cx="${wheel1Cx}" cy="${wheelCy}" r="${(wheelR * 0.45).toFixed(1)}" fill="none" stroke="${accentColor}" stroke-width="0.4" stroke-opacity="0.6"/>
+        
+        <circle cx="${wheel2Cx}" cy="${wheelCy}" r="${wheelR}" fill="#0b0b0c" stroke="${accentColor}" stroke-width="0.8"/>
+        <circle cx="${wheel2Cx}" cy="${wheelCy}" r="${(wheelR * 0.45).toFixed(1)}" fill="none" stroke="${accentColor}" stroke-width="0.4" stroke-opacity="0.6"/>
+        
+        <!-- Spec Annotation Lines -->
+        <!-- Front Engine Callout -->
+        <path d="M 40 45 L 25 35 L 12 35" fill="none" stroke="${accentColor}" stroke-width="0.4" stroke-opacity="0.5"/>
+        <circle cx="40" cy="45" r="0.8" fill="${accentColor}"/>
+        <text x="12" y="32" fill="rgba(245, 235, 221, 0.7)" font-size="3.5" font-weight="600">${car.engine}</text>
+        
+        <!-- Center Cabin/Gearbox Callout -->
+        <path d="M 115 48 L 130 38 L 145 38" fill="none" stroke="${accentColor}" stroke-width="0.4" stroke-opacity="0.5"/>
+        <circle cx="115" cy="48" r="0.8" fill="${accentColor}"/>
+        <text x="131" y="35" fill="rgba(245, 235, 221, 0.7)" font-size="3.5" font-weight="600">${transmissionBrief}</text>
+        
+        <!-- Dimension Line -->
+        <line x1="20" y1="83" x2="180" y2="83" stroke="${accentColor}" stroke-width="0.4" stroke-opacity="0.4" stroke-dasharray="2 2"/>
+        <path d="M 20 81 L 20 85 M 180 81 L 180 85" stroke="${accentColor}" stroke-width="0.4" stroke-opacity="0.4"/>
+        <rect x="80" y="80.5" width="40" height="5" fill="#0b0b0c" rx="1"/>
+        <text x="100" y="84.5" text-anchor="middle" fill="${accentColor}" font-size="3.8" font-weight="bold" letter-spacing="0.2">WHEELBASE: ${dynamicWheelbase}mm</text>
+        
+        <!-- Tech spec stamp at footer -->
+        <rect x="10" y="89" width="180" height="14" fill="rgba(139, 107, 63, 0.02)" stroke="${accentColor}" stroke-width="0.4" stroke-opacity="0.2" rx="1"/>
+        <text x="15" y="98" fill="rgba(245, 235, 221, 0.5)" font-size="3.5" font-weight="500">POWER: <tspan fill="${accentColor}" font-weight="bold">${car.power}</tspan></text>
+        <text x="75" y="98" fill="rgba(245, 235, 221, 0.5)" font-size="3.5" font-weight="500">SPEED: <tspan fill="${accentColor}" font-weight="bold">${car.topSpeed}</tspan></text>
+        <text x="135" y="98" fill="rgba(245, 235, 221, 0.5)" font-size="3.5" font-weight="500">WEIGHT: <tspan fill="${accentColor}" font-weight="bold">${car.weight}</tspan></text>
+    </svg>
+    `;
+    
+    return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg.trim());
+}
+
 // Merge dynamically downloaded CSV cars from global csvCarsData variable
 if (typeof csvCarsData !== "undefined" && Array.isArray(csvCarsData)) {
     csvCarsData.forEach(car => {
         if (!carsData[car.id]) {
-            // Dynamically assign premium category-specific and origin-specific representative images
+            // Assign a unique procedural blueprint SVG URI if no specific masterpieces image is present
             if (!car.image) {
-                const country = car.country ? car.country.toLowerCase() : "";
-                if (country === "usa") {
-                    car.image = "images/us_muscle_classic.png";
-                } else if (country === "japan") {
-                    car.image = "images/japanese_classic_sedan.png";
-                } else if (country === "germany") {
-                    car.image = "images/gullwing_restored.png";
-                } else if (country === "united kingdom") {
-                    car.image = "images/jaguar_etype.png";
-                } else {
-                    car.image = "images/european_classic_touring.png";
-                }
+                car.image = generateBlueprintDataURI(car);
             }
             carsData[car.id] = car;
         }

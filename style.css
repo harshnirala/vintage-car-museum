@@ -3417,4 +3417,13 @@ body.loading-active {
     overflow: hidden !important;
 }
 
+/* Ensure vector blueprints don't get cropped by object-fit: cover */
+.car-card-img[src^="data:image/svg+xml"],
+.compare-img[src^="data:image/svg+xml"],
+.modal-main-img[src^="data:image/svg+xml"],
+.hall-car-thumb[src^="data:image/svg+xml"] {
+    object-fit: contain !important;
+    background: #0b0b0c !important;
+}
+
 

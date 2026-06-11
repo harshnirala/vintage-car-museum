@@ -715,9 +715,9 @@ nav a:hover::after, nav a.active::after {
     transition: var(--transition-smooth);
 }
 
-.museum-hall path {
-    fill: rgba(197, 168, 92, 0.05);
-    stroke: rgba(197, 168, 92, 0.25);
+.museum-hall rect, .museum-hall path {
+    fill: rgba(197, 168, 92, 0.03);
+    stroke: rgba(197, 168, 92, 0.35);
     stroke-width: 1.5;
     transition: var(--transition-smooth);
 }
@@ -732,14 +732,165 @@ nav a:hover::after, nav a.active::after {
     transition: var(--transition-smooth);
 }
 
+.museum-hall:hover rect, .museum-hall.active rect,
 .museum-hall:hover path, .museum-hall.active path {
-    fill: rgba(197, 168, 92, 0.25);
+    fill: rgba(197, 168, 92, 0.12);
     stroke: var(--gold);
-    filter: drop-shadow(0 0 8px var(--gold-glow));
+    filter: drop-shadow(0 0 10px rgba(197, 168, 92, 0.6));
 }
 
 .museum-hall:hover text, .museum-hall.active text {
     fill: var(--text-primary);
+}
+
+/* ==========================================================================
+   Museum Floor Map Blueprint Styles
+   ========================================================================== */
+
+/* Outer grid overlay coordinates */
+.blueprint-coord {
+    font-family: var(--font-heading);
+    font-size: 10px;
+    fill: rgba(197, 168, 92, 0.3);
+    font-weight: bold;
+    pointer-events: none;
+}
+
+/* Architectural dimension labels */
+.blueprint-dim-text {
+    font-family: var(--font-body);
+    font-size: 8px;
+    fill: rgba(197, 168, 92, 0.35);
+    font-weight: 500;
+    pointer-events: none;
+    letter-spacing: 0.5px;
+}
+
+/* Guidelines flow path */
+.blueprint-path-guide {
+    stroke: rgba(197, 168, 92, 0.18);
+    stroke-width: 1.2;
+    stroke-dasharray: 6 5;
+    animation: blueprint-flow 25s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes blueprint-flow {
+    to {
+        stroke-dashoffset: -1000;
+    }
+}
+
+/* Room name headings inside halls */
+.museum-hall .hall-name {
+    fill: var(--text-muted);
+    font-family: var(--font-heading);
+    font-size: 12px;
+    font-weight: 600;
+    text-anchor: middle;
+    pointer-events: none;
+    transition: var(--transition-smooth);
+}
+
+.museum-hall .hall-years {
+    fill: rgba(197, 168, 92, 0.65);
+    font-family: var(--font-body);
+    font-size: 9px;
+    text-anchor: middle;
+    pointer-events: none;
+    transition: var(--transition-smooth);
+}
+
+.museum-hall:hover .hall-name, .museum-hall.active .hall-name {
+    fill: var(--text-primary);
+}
+
+.museum-hall:hover .hall-years, .museum-hall.active .hall-years {
+    fill: var(--gold);
+    font-weight: 600;
+}
+
+/* Room small embedded car icon silhouettes */
+.hall-car-icon {
+    fill: none;
+    stroke: rgba(197, 168, 92, 0.18);
+    stroke-width: 1.5;
+    transition: var(--transition-smooth);
+    pointer-events: none;
+}
+
+.hall-car-icon-wheels {
+    fill: none;
+    stroke: rgba(197, 168, 92, 0.18);
+    stroke-width: 1.5;
+    transition: var(--transition-smooth);
+    pointer-events: none;
+}
+
+.museum-hall:hover .hall-car-icon, .museum-hall.active .hall-car-icon {
+    stroke: var(--gold);
+    filter: drop-shadow(0 0 4px rgba(197, 168, 92, 0.8));
+}
+
+.museum-hall:hover .hall-car-icon-wheels, .museum-hall.active .hall-car-icon-wheels {
+    stroke: var(--gold);
+}
+
+/* Blueprint stamp branding block */
+.blueprint-stamp text {
+    pointer-events: none;
+}
+
+/* Blueprint Legend Container */
+.blueprint-legend {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 25px;
+    padding: 15px 20px;
+    background: rgba(197, 168, 92, 0.02);
+    border: 1px solid rgba(197, 168, 92, 0.15);
+    border-radius: 6px;
+    backdrop-filter: blur(10px);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.legend-emoji {
+    font-size: 1.3rem;
+    filter: drop-shadow(0 0 5px rgba(197, 168, 92, 0.3));
+}
+
+.legend-text-wrap {
+    display: flex;
+    flex-direction: column;
+}
+
+.legend-label {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.legend-sub {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* Responsive adjustments for legend */
+@media (max-width: 768px) {
+    .blueprint-legend {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
 }
 
 .map-info {

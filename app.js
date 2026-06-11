@@ -542,14 +542,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const menuToggle = document.getElementById("menu-toggle");
     const navMenu = document.getElementById("nav-menu");
     menuToggle.addEventListener("click", () => {
+        menuToggle.classList.toggle("active");
         navMenu.classList.toggle("active");
+        document.body.classList.toggle("menu-active");
     });
     
     // Close mobile nav when clicking a link
-    const navLinks = navMenu.querySelectorAll("a");
+    const navLinks = navMenu.querySelectorAll("ul a");
     navLinks.forEach(link => {
         link.addEventListener("click", () => {
+            menuToggle.classList.remove("active");
             navMenu.classList.remove("active");
+            document.body.classList.remove("menu-active");
             
             // Set active class
             navLinks.forEach(l => l.classList.remove("active"));

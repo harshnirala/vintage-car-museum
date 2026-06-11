@@ -123,7 +123,6 @@ const carsData = {
         }
     }
 };
-
 const hallsData = {
     "pioneers": {
         title: "Pioneers Gallery",
@@ -146,6 +145,34 @@ const hallsData = {
         cars: ["mercedes-gullwing"]
     }
 };
+
+// Merge dynamically downloaded CSV cars from global csvCarsData variable
+if (typeof csvCarsData !== "undefined" && Array.isArray(csvCarsData)) {
+    csvCarsData.forEach(car => {
+        if (!carsData[car.id]) {
+            // Dynamically assign premium category-specific and origin-specific representative images
+            if (!car.image) {
+                const country = car.country ? car.country.toLowerCase() : "";
+                if (country === "usa") {
+                    car.image = "images/us_muscle_classic.png";
+                } else if (country === "japan") {
+                    car.image = "images/japanese_classic_sedan.png";
+                } else if (country === "germany") {
+                    car.image = "images/gullwing_restored.png";
+                } else if (country === "united kingdom") {
+                    car.image = "images/jaguar_etype.png";
+                } else {
+                    car.image = "images/european_classic_touring.png";
+                }
+            }
+            carsData[car.id] = car;
+        }
+        if (hallsData[car.category] && !hallsData[car.category].cars.includes(car.id)) {
+            hallsData[car.category].cars.push(car.id);
+        }
+    });
+}
+
 
 // Global audio generator reference
 let activeAudioEngine = null;
@@ -454,14 +481,30 @@ function updateHallInfoPanel(category) {
     const carsContainer = document.getElementById("hall-cars-container");
     carsContainer.innerHTML = "";
     
-    hall.cars.forEach(carId => {
+    // Limit sidebar entries to 8 items to prevent overflow
+    hall.cars.slice(0, 8).forEach(carId => {
         const car = carsData[carId];
         if (!car) return;
         
         const item = document.createElement("div");
         item.className = "hall-car-item";
+        
+        let thumbHTML = "";
+        if (car.image) {
+            thumbHTML = `<img class="hall-car-thumb" src="${car.image}" alt="${car.name}">`;
+        } else {
+            thumbHTML = `
+            <div class="hall-car-thumb hall-car-thumb-placeholder">
+                <svg viewBox="0 0 100 40" class="placeholder-car-svg" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 28 C 10 28, 15 28, 17 28 C 19 25, 23 25, 25 28 C 35 28, 65 28, 75 28 C 77 25, 81 25, 83 28 C 85 28, 90 28, 90 28 C 92 28, 93 27, 93 25 C 93 22, 91 18, 86 16 C 82 14, 75 14, 70 14 C 65 14, 60 10, 50 10 C 40 10, 35 12, 30 14 C 20 16, 12 18, 10 22 C 8 24, 8 28, 10 28 Z" fill="none" stroke="#c5a85c" stroke-width="1.5" stroke-linejoin="round"/>
+                    <circle cx="21" cy="28" r="4" fill="none" stroke="#c5a85c" stroke-width="1.5"/>
+                    <circle cx="79" cy="28" r="4" fill="none" stroke="#c5a85c" stroke-width="1.5"/>
+                </svg>
+            </div>`;
+        }
+        
         item.innerHTML = `
-            <img class="hall-car-thumb" src="${car.image}" alt="${car.name}">
+            ${thumbHTML}
             <div class="hall-car-details">
                 <h4>${car.name}</h4>
                 <p>${car.year} &bull; ${car.engine}</p>
@@ -514,11 +557,19 @@ function renderCollectionGrid() {
     const query = currentSearchQuery.toLowerCase().trim();
     let renderedCount = 0;
     
+    // Filter matches based on category and search query
+    const matches = [];
     Object.keys(carsData).forEach(carId => {
         const car = carsData[carId];
         
         // Apply category filter
         if (currentCategoryFilter !== "all" && car.category !== currentCategoryFilter) {
+            return;
+        }
+        
+        // If query is empty, hide CSV database entries (starts with csv-) to optimize initial load
+        const isCsvCar = carId.startsWith("csv-");
+        if (!query && isCsvCar) {
             return;
         }
         
@@ -537,13 +588,55 @@ function renderCollectionGrid() {
             }
         }
         
+        matches.push(car);
+    });
+    
+    // Sort so the 4 featured masterpieces (non-CSV) always come first
+    matches.sort((a, b) => {
+        const aIsCsv = a.id.startsWith("csv-");
+        const bIsCsv = b.id.startsWith("csv-");
+        if (aIsCsv && !bIsCsv) return 1;
+        if (!aIsCsv && bIsCsv) return -1;
+        return 0;
+    });
+    
+    // Limit CSV search results to top 24 matches to prevent DOM lag
+    let csvCount = 0;
+    const finalCars = [];
+    for (const car of matches) {
+        if (car.id.startsWith("csv-")) {
+            if (csvCount >= 24) continue;
+            csvCount++;
+        }
+        finalCars.push(car);
+    }
+    
+    finalCars.forEach(car => {
         renderedCount++;
         
         const card = document.createElement("div");
         card.className = "car-card glass-panel";
+        
+        // Premium gold silhouette placeholder if car image is null
+        let imageHTML = "";
+        if (car.image) {
+            imageHTML = `<img class="car-card-img" src="${car.image}" alt="${car.name}">`;
+        } else {
+            imageHTML = `
+            <div class="car-card-placeholder">
+                <svg viewBox="0 0 100 40" class="placeholder-car-svg" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 28 C 10 28, 15 28, 17 28 C 19 25, 23 25, 25 28 C 35 28, 65 28, 75 28 C 77 25, 81 25, 83 28 C 85 28, 90 28, 90 28 C 92 28, 93 27, 93 25 C 93 22, 91 18, 86 16 C 82 14, 75 14, 70 14 C 65 14, 60 10, 50 10 C 40 10, 35 12, 30 14 C 20 16, 12 18, 10 22 C 8 24, 8 28, 10 28 Z" fill="none" stroke="#c5a85c" stroke-width="1.2" stroke-linejoin="round"/>
+                    <circle cx="21" cy="28" r="3.5" fill="none" stroke="#c5a85c" stroke-width="1.2"/>
+                    <circle cx="79" cy="28" r="3.5" fill="none" stroke="#c5a85c" stroke-width="1.2"/>
+                    <path d="M38 14 L42 11 L60 11 L66 14" fill="none" stroke="#c5a85c" stroke-width="0.8" stroke-dasharray="2 1"/>
+                </svg>
+                <span class="placeholder-text">Database Registry</span>
+            </div>`;
+        }
+        
         card.innerHTML = `
             <div class="car-card-img-wrap">
-                <img class="car-card-img" src="${car.image}" alt="${car.name}">
+                ${imageHTML}
                 <div class="headlight-glow"></div>
                 <div class="card-tag">${car.hall}</div>
                 
@@ -626,7 +719,12 @@ function initSpecsComparer() {
     select1.innerHTML = "";
     select2.innerHTML = "";
     
-    Object.keys(carsData).forEach(carId => {
+    // Sort all car keys by production year ascending
+    const sortedCarIds = Object.keys(carsData).sort((a, b) => {
+        return carsData[a].year - carsData[b].year;
+    });
+    
+    sortedCarIds.forEach(carId => {
         const car = carsData[carId];
         
         const opt1 = document.createElement("option");
@@ -641,8 +739,11 @@ function initSpecsComparer() {
     });
     
     // Set default values (diff cars)
-    select1.value = "rolls-phantom";
-    select2.value = "mercedes-gullwing";
+    const default1 = sortedCarIds.includes("rolls-phantom") ? "rolls-phantom" : sortedCarIds[0];
+    const default2 = sortedCarIds.includes("mercedes-gullwing") ? "mercedes-gullwing" : sortedCarIds[1];
+    
+    select1.value = default1;
+    select2.value = default2;
     
     // Event listeners
     select1.addEventListener("change", updateComparison);
@@ -661,15 +762,39 @@ function updateComparison() {
     
     if (!car1 || !car2) return;
     
-    // Render previews
+    // Render previews (supporting gold silhouette placeholder if image is null)
+    const img1HTML = car1.image 
+        ? `<img class="compare-img" src="${car1.image}" alt="${car1.name}">`
+        : `<div class="compare-img compare-img-placeholder">
+             <svg viewBox="0 0 100 40" class="placeholder-car-svg" xmlns="http://www.w3.org/2000/svg">
+                 <path d="M10 28 C 10 28, 15 28, 17 28 C 19 25, 23 25, 25 28 C 35 28, 65 28, 75 28 C 77 25, 81 25, 83 28 C 85 28, 90 28, 90 28 C 92 28, 93 27, 93 25 C 93 22, 91 18, 86 16 C 82 14, 75 14, 70 14 C 65 14, 60 10, 50 10 C 40 10, 35 12, 30 14 C 20 16, 12 18, 10 22 C 8 24, 8 28, 10 28 Z" fill="none" stroke="#c5a85c" stroke-width="1.2" stroke-linejoin="round"/>
+                 <circle cx="21" cy="28" r="3.5" fill="none" stroke="#c5a85c" stroke-width="1.2"/>
+                 <circle cx="79" cy="28" r="3.5" fill="none" stroke="#c5a85c" stroke-width="1.2"/>
+                 <path d="M38 14 L42 11 L60 11 L66 14" fill="none" stroke="#c5a85c" stroke-width="0.8" stroke-dasharray="2 1"/>
+             </svg>
+             <span class="compare-placeholder-tag">Database Registry</span>
+           </div>`;
+           
+    const img2HTML = car2.image 
+        ? `<img class="compare-img" src="${car2.image}" alt="${car2.name}">`
+        : `<div class="compare-img compare-img-placeholder">
+             <svg viewBox="0 0 100 40" class="placeholder-car-svg" xmlns="http://www.w3.org/2000/svg">
+                 <path d="M10 28 C 10 28, 15 28, 17 28 C 19 25, 23 25, 25 28 C 35 28, 65 28, 75 28 C 77 25, 81 25, 83 28 C 85 28, 90 28, 90 28 C 92 28, 93 27, 93 25 C 93 22, 91 18, 86 16 C 82 14, 75 14, 70 14 C 65 14, 60 10, 50 10 C 40 10, 35 12, 30 14 C 20 16, 12 18, 10 22 C 8 24, 8 28, 10 28 Z" fill="none" stroke="#c5a85c" stroke-width="1.2" stroke-linejoin="round"/>
+                 <circle cx="21" cy="28" r="3.5" fill="none" stroke="#c5a85c" stroke-width="1.2"/>
+                 <circle cx="79" cy="28" r="3.5" fill="none" stroke="#c5a85c" stroke-width="1.2"/>
+                 <path d="M38 14 L42 11 L60 11 L66 14" fill="none" stroke="#c5a85c" stroke-width="0.8" stroke-dasharray="2 1"/>
+             </svg>
+             <span class="compare-placeholder-tag">Database Registry</span>
+           </div>`;
+
     document.getElementById("compare-preview-1").innerHTML = `
-        <img class="compare-img" src="${car1.image}" alt="${car1.name}">
+        ${img1HTML}
         <h3>${car1.name}</h3>
         <p>${car1.hall}</p>
     `;
     
     document.getElementById("compare-preview-2").innerHTML = `
-        <img class="compare-img" src="${car2.image}" alt="${car2.name}">
+        ${img2HTML}
         <h3>${car2.name}</h3>
         <p>${car2.hall}</p>
     `;
@@ -829,9 +954,22 @@ function openCarSpotlight(carId) {
     }
     
     const container = document.getElementById("modal-body-container");
+    
+    const mediaHTML = car.image
+        ? `<img class="modal-main-img" src="${car.image}" alt="${car.name}">`
+        : `<div class="modal-main-img modal-main-img-placeholder">
+             <svg viewBox="0 0 100 40" class="placeholder-car-svg" xmlns="http://www.w3.org/2000/svg">
+                 <path d="M10 28 C 10 28, 15 28, 17 28 C 19 25, 23 25, 25 28 C 35 28, 65 28, 75 28 C 77 25, 81 25, 83 28 C 85 28, 90 28, 90 28 C 92 28, 93 27, 93 25 C 93 22, 91 18, 86 16 C 82 14, 75 14, 70 14 C 65 14, 60 10, 50 10 C 40 10, 35 12, 30 14 C 20 16, 12 18, 10 22 C 8 24, 8 28, 10 28 Z" fill="none" stroke="#c5a85c" stroke-width="1.2" stroke-linejoin="round"/>
+                 <circle cx="21" cy="28" r="3.5" fill="none" stroke="#c5a85c" stroke-width="1.2"/>
+                 <circle cx="79" cy="28" r="3.5" fill="none" stroke="#c5a85c" stroke-width="1.2"/>
+                 <path d="M38 14 L42 11 L60 11 L66 14" fill="none" stroke="#c5a85c" stroke-width="0.8" stroke-dasharray="2 1"/>
+             </svg>
+             <span class="modal-placeholder-tag">Database Registry</span>
+           </div>`;
+
     container.innerHTML = `
         <div class="modal-media-col">
-            <img class="modal-main-img" src="${car.image}" alt="${car.name}">
+            ${mediaHTML}
             
             <div class="engine-sound-card">
                 <div class="engine-info">

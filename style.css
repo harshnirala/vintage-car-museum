@@ -2288,3 +2288,127 @@ footer {
     padding: 8px 18px;
     font-size: 0.8rem;
 }
+
+/* ==========================================================================
+   Premium Gold Vector Silhouette Placeholders
+   ========================================================================== */
+
+/* 1. Collection Card Placeholder */
+.car-card-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, rgba(197, 168, 92, 0.08) 0%, #000 80%);
+    border-bottom: 1px solid rgba(197, 168, 92, 0.15);
+    position: relative;
+    padding: 20px;
+}
+
+.placeholder-car-svg {
+    width: 80%;
+    max-width: 160px;
+    height: auto;
+    filter: drop-shadow(0 0 10px rgba(197, 168, 92, 0.4));
+    animation: placeholder-glow 3s ease-in-out infinite alternate;
+}
+
+.placeholder-text {
+    margin-top: 15px;
+    font-size: 0.75rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0.8;
+    font-family: var(--font-heading);
+}
+
+/* 2. Spotlight Modal Image Placeholder */
+.modal-main-img-placeholder {
+    width: 100%;
+    height: 300px;
+    border-radius: 8px;
+    border: 1px solid rgba(197, 168, 92, 0.25);
+    background: radial-gradient(circle at center, rgba(197, 168, 92, 0.08) 0%, #080809 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.modal-main-img-placeholder .placeholder-car-svg {
+    width: 60%;
+    max-width: 250px;
+}
+
+.modal-placeholder-tag {
+    margin-top: 20px;
+    font-size: 0.8rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-family: var(--font-heading);
+}
+
+/* 3. Comparison Previews Image Placeholder */
+.compare-img-placeholder {
+    width: 100%;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, rgba(197, 168, 92, 0.06) 0%, #000 100%);
+    border-radius: 6px;
+    border: 1px solid rgba(197, 168, 92, 0.2);
+    position: relative;
+    padding: 15px;
+}
+
+.compare-img-placeholder .placeholder-car-svg {
+    width: 70%;
+    max-width: 140px;
+}
+
+.compare-placeholder-tag {
+    margin-top: 10px;
+    font-size: 0.7rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: var(--font-heading);
+}
+
+/* 4. Floor Map Sidebar Thumbnail Placeholder */
+.hall-car-thumb-placeholder {
+    width: 60px;
+    height: 40px;
+    border-radius: 4px;
+    border: 1px solid rgba(197, 168, 92, 0.25);
+    background: #080809;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+}
+
+.hall-car-thumb-placeholder .placeholder-car-svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Micro-animations */
+@keyframes placeholder-glow {
+    0% {
+        filter: drop-shadow(0 0 4px rgba(197, 168, 92, 0.25));
+        opacity: 0.85;
+    }
+    100% {
+        filter: drop-shadow(0 0 12px rgba(197, 168, 92, 0.5));
+        opacity: 1;
+    }
+}
+

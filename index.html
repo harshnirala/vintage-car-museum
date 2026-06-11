@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Step into L'Époque Automobile, a premium vintage car museum showcasing iconic automotive legends from pre-war pioneers to golden era sports cars. Experience interactive tours, sound libraries, and restoration stories.">
+    <meta name="author" content="L'Époque Automobile Museum">
+    
+    <title>L'Époque Automobile | Premium Vintage Car Museum</title>
+    
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="https://www.wix.com/favicon.ico" type="image/x-icon">
+</head>
+<body>
+
+    <!-- ==========================================================================
+       Header & Navigation
+       ========================================================================== -->
+    <!-- ==========================================================================
+       Top Utility Announcement Bar (Hours & Current Exhibition Info)
+       ========================================================================== -->
+    <div class="top-announcement-bar">
+        <div class="container top-bar-container">
+            <div class="top-bar-item hours">
+                <span class="status-indicator-dot"></span>
+                Open Today: <span class="highlight-val">10:00 AM - 6:00 PM</span>
+            </div>
+            <div class="top-bar-item exhibition">
+                Current Exhibition: <span class="highlight-val gold">Echoes in the Fog: Pre-War Legends</span>
+            </div>
+        </div>
+    </div>
+
+    <header id="main-header">
+        <div class="container nav-container">
+            <a href="#" class="logo" id="logo-link">
+                <!-- SVG Car Icon -->
+                <svg class="logo-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 8.5c.83 0 1.5-.67 1.5-1.5V5c0-1.1-.9-2-2-2H5.5C4.4 3 3.5 3.9 3.5 5v2c0 .83.67 1.5 1.5 1.5H6v7H4.5c-.83 0-1.5.67-1.5 1.5v1c0 .83.67 1.5 1.5 1.5H6c0 1.66 1.34 3 3 3s3-1.34 3-3h4c0 1.66 1.34 3 3 3s3-1.34 3-3h1.5c.83 0 1.5-.67 1.5-1.5v-1c0-.83-.67-1.5-1.5-1.5H19v-7h.01zM7.5 5h9c.28 0 .5.22.5.5s-.22.5-.5.5h-9c-.28 0-.5-.22-.5-.5s.22-.5.5-.5zm1.5 13.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5 0 1.5 1.5-.67 1.5-1.5 1.5zm9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5 0 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                </svg>
+                <span>L'Époque</span>
+            </a>
+            
+            <nav id="nav-menu">
+                <ul>
+                    <li><a href="#" class="active" id="nav-home">Home</a></li>
+                    <li><a href="#map" id="nav-map">Floor Map</a></li>
+                    <li><a href="#collection" id="nav-collection">Collection</a></li>
+                    <li><a href="#compare" id="nav-compare">Compare</a></li>
+                    <li><a href="#restoration" id="nav-restoration">Restoration</a></li>
+                    <li><a href="#timeline" id="nav-timeline">Timeline</a></li>
+                </ul>
+            </nav>
+            
+            <button class="mobile-nav-toggle" id="menu-toggle" aria-label="Toggle navigation menu">
+                &#9776;
+            </button>
+        </div>
+    </header>
+
+    <!-- ==========================================================================
+       Hero Section
+       ========================================================================== -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        
+        <!-- Drifting Fog Layers -->
+        <div class="fog-container">
+            <div class="fog-layer fog-layer-1"></div>
+            <div class="fog-layer fog-layer-2"></div>
+        </div>
+
+        <div class="container hero-content">
+            <div class="hero-header-flex">
+                <div class="hero-text-block">
+                    <p class="hero-tagline">L'Époque Automobile Museum</p>
+                    <h1 class="hero-title">Step Inside<br><span>A Century of Automotive History</span></h1>
+                    <p class="hero-description">
+                        Welcome to a world of mechanical artistry, speed, and heritage. Walk through decades of automotive engineering that shaped culture and defied limits.
+                    </p>
+                </div>
+                
+                <div class="hero-widgets-block">
+                    <!-- Ambient sound toggle button in the hero -->
+                    <button class="sound-toggle-btn" id="hero-sound-toggle" aria-label="Toggle ambient engine sound">
+                        <svg class="sound-toggle-icon" id="sound-toggle-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                            <!-- Muted cross by default -->
+                            <line x1="22" y1="9" x2="16" y2="15" class="mute-line"/>
+                            <line x1="16" y1="9" x2="22" y2="15" class="mute-line"/>
+                        </svg>
+                        <span id="hero-sound-status">Ambient Engine: OFF</span>
+                    </button>
+
+                    <!-- Featured Exhibition Card Widget -->
+                    <div class="featured-exhibition-widget glass-panel">
+                        <div class="exhibition-tag">Featured Exhibition</div>
+                        <h3>Echoes in the Fog</h3>
+                        <p>A curated retrospective of pre-war grand tourers cutting through the mist of time.</p>
+                        <a href="#collection" class="exhibition-link" id="exhibition-explore-link">Explore Gallery &rarr;</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-buttons">
+                <a href="#collection" class="btn btn-primary" id="btn-explore">Explore Collection</a>
+                <a href="#map" class="btn btn-secondary" id="btn-tour">Museum Map</a>
+            </div>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <h3>150+</h3>
+                    <p>Legends Restored</p>
+                </div>
+                <div class="stat-item">
+                    <h3>85+</h3>
+                    <p>Years of History</p>
+                </div>
+                <div class="stat-item">
+                    <h3>24</h3>
+                    <p>Marques Represented</p>
+                </div>
+                <div class="stat-item">
+                    <h3 id="visitor-count">1,240</h3>
+                    <p>Visitors Today</p>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+
+    <!-- ==========================================================================
+       Featured Car of the Month Section
+       ========================================================================== -->
+    <section class="featured-car-section" id="featured-month">
+        <div class="container">
+            <div class="section-title-wrap">
+                <h2 class="section-title">Featured Car of the <span>Month</span></h2>
+                <p class="section-subtitle">A dedicated spotlight on a rare engineering marvel selected from our curatorial archive.</p>
+                <div class="gold-line"></div>
+            </div>
+            
+            <div class="featured-car-card glass-panel" id="gullwing-3d-card">
+                <!-- Visual Spotlight Column -->
+                <div class="featured-car-visual" id="gullwing-3d-visual">
+                    <div class="spotlight-effect"></div>
+                    <div class="featured-car-perspective-container">
+                        <img class="featured-car-img" id="featured-car-image-node" src="images/gullwing_restored.png" alt="Mercedes-Benz 300SL Gullwing in showroom">
+                        
+                        <!-- Hover Specs Overlay -->
+                        <div class="featured-hover-overlay">
+                            <div class="overlay-specs-grid">
+                                <div class="overlay-spec-item country">
+                                    <span class="spec-flag">🇩🇪</span>
+                                    <span class="spec-value">Germany</span>
+                                </div>
+                                <div class="overlay-spec-item">
+                                    <span class="spec-label">Year</span>
+                                    <span class="spec-value">1954</span>
+                                </div>
+                                <div class="overlay-spec-item">
+                                    <span class="spec-label">Power</span>
+                                    <span class="spec-value">240 HP</span>
+                                </div>
+                                <div class="overlay-spec-item">
+                                    <span class="spec-label">Top Speed</span>
+                                    <span class="spec-value">163 MPH</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 360 Spin indicator overlay -->
+                    <div class="spin-overlay" id="featured-spin-instructions">
+                        <svg class="spin-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l.73-.73"/>
+                        </svg>
+                        <span>Move cursor to rotate / tilt in 3D</span>
+                    </div>
+
+                    <!-- Equalizer for sound playing -->
+                    <div class="equalizer featured-eq" id="featured-eq-display">
+                        <div class="eq-bar"></div>
+                        <div class="eq-bar"></div>
+                        <div class="eq-bar"></div>
+                        <div class="eq-bar"></div>
+                    </div>
+                </div>
+                
+                <!-- Detail Column -->
+                <div class="featured-car-details">
+                    <span class="legend-tag">This Month's Legend</span>
+                    <h3 class="featured-car-title">Mercedes-Benz 300SL Gullwing</h3>
+                    
+                    <div class="detail-block">
+                        <h4>The Story</h4>
+                        <p>
+                            Born from racing heritage, the 300SL Gullwing coupe was a direct descendant of the W194 race car. The rigid tubular spaceframe chassis ran high along the sides of the cabin, making standard doors structurally impossible. The engineers solved this with upward-hinged roof-mounted doors, creating the iconic silhouette that shocked the design world.
+                        </p>
+                    </div>
+                    
+                    <div class="detail-block">
+                        <h4>Historical Significance</h4>
+                        <p>
+                            The 300SL revolutionized performance by introducing the world's first production gasoline direct-injection system, nearly doubling its horsepower. Capable of a blistering 163 mph, it was the fastest production car of its era, redefining sports car performance and laying the foundation for modern supercars.
+                        </p>
+                    </div>
+                    
+                    <div class="featured-car-actions">
+                        <button class="btn btn-secondary action-icon-btn" id="featured-360-trigger">
+                            <svg class="btn-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l.73-.73"/>
+                            </svg>
+                            <span id="featured-360-text">360° View</span>
+                        </button>
+                        
+                        <button class="btn btn-primary action-icon-btn" id="featured-sound-trigger">
+                            <svg class="btn-svg-icon" id="featured-play-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <polygon points="5 3 19 12 5 21"/>
+                            </svg>
+                            <span id="featured-sound-text">Listen to Engine</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       Interactive Floor Map Section
+       ========================================================================== -->
+    <section class="map-section" id="map">
+        <div class="container">
+            <div class="section-title-wrap">
+                <h2 class="section-title">Museum <span>Floor Map</span></h2>
+                <p class="section-subtitle">Click on a gallery space on the floor plan to reveal the classic cars exhibited inside.</p>
+                <div class="gold-line"></div>
+            </div>
+            
+            <div class="map-layout">
+                <!-- SVG interactive floor map -->
+                <div class="map-wrapper glass-panel">
+                    <svg class="museum-svg" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" id="interactive-museum-svg">
+                        <!-- Background grid or style -->
+                        <rect width="600" height="400" fill="transparent"/>
+                        
+                        <!-- Lobby / Entrance (Non-clickable) -->
+                        <rect x="40" y="270" width="160" height="90" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5" stroke-dasharray="4,4"/>
+                        <text x="120" y="320" fill="rgba(255,255,255,0.2)" font-family="Cinzel" font-size="12" text-anchor="middle">LOBBY / ENTRANCE</text>
+                        
+                        <!-- Hall 1: Pioneers Gallery -->
+                        <g class="museum-hall active" id="hall-pioneers" data-category="pioneers">
+                            <rect x="40" y="40" width="160" height="210" rx="4"/>
+                            <text x="120" y="145">Pioneers Gallery</text>
+                            <text x="120" y="165" fill="#c5a85c" font-size="9">(1900s - 1920s)</text>
+                        </g>
+                        
+                        <!-- Hall 2: Golden Era -->
+                        <g class="museum-hall" id="hall-golden-era" data-category="golden-era">
+                            <rect x="220" y="40" width="160" height="210" rx="4"/>
+                            <text x="300" y="145">Golden Era</text>
+                            <text x="300" y="165" fill="#c5a85c" font-size="9">(1930s - 1950s)</text>
+                        </g>
+                        
+                        <!-- Hall 3: Speed & Muscle -->
+                        <g class="museum-hall" id="hall-speed-muscle" data-category="speed-muscle">
+                            <rect x="400" y="40" width="160" height="320" rx="4"/>
+                            <text x="480" y="200">Speed & Muscle</text>
+                            <text x="480" y="220" fill="#c5a85c" font-size="9">(1960s - 1970s)</text>
+                        </g>
+                        
+                        <!-- Hall 4: Restoration Lab -->
+                        <g class="museum-hall" id="hall-restoration" data-category="restoration">
+                            <rect x="220" y="270" width="160" height="90" rx="4"/>
+                            <text x="300" y="315">Restoration Lab</text>
+                            <text x="300" y="330" fill="#c5a85c" font-size="9">LIVE WORKSHOP</text>
+                        </g>
+                    </svg>
+                </div>
+                
+                <!-- Room info panel -->
+                <div class="map-info">
+                    <div class="hall-info-card glass-panel" id="hall-info-display">
+                        <h3 class="hall-info-title" id="hall-title">Pioneers Gallery</h3>
+                        <p class="hall-info-desc" id="hall-desc">
+                            The dawn of mobility. Explore the earliest brass-era carriages that replaced horses and introduced internal combustion to the masses.
+                        </p>
+                        <h4 style="font-family: var(--font-heading); font-size: 0.95rem; margin-bottom: 15px; color: var(--text-primary); text-transform: uppercase;">Cars in this Room</h4>
+                        <div class="hall-car-list" id="hall-cars-container">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       Collection Section
+       ========================================================================== -->
+    <section class="collection" id="collection">
+        <div class="container">
+            <div class="section-title-wrap">
+                <h2 class="section-title">The <span>Vault Collection</span></h2>
+                <p class="section-subtitle">Browse through our featured museum vehicles. Click on any car to inspect historical highlights, specifications, and listen to the engine sounds.</p>
+                <div class="gold-line"></div>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="search-wrap">
+                <div class="search-box glass-panel">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    </svg>
+                    <input type="text" id="car-search-input" placeholder="Search cars..." aria-label="Search vintage cars">
+                </div>
+            </div>
+            
+            <!-- Category Tabs -->
+            <div class="filter-tabs">
+                <button class="filter-btn active" data-filter="all" id="filter-all">All Eras</button>
+                <button class="filter-btn" data-filter="pioneers" id="filter-pioneers">Pioneers</button>
+                <button class="filter-btn" data-filter="golden-era" id="filter-golden">Golden Era</button>
+                <button class="filter-btn" data-filter="speed-muscle" id="filter-speed">Speed & Muscle</button>
+            </div>
+            
+            <!-- Grid of Cards -->
+            <div class="collection-grid" id="cars-grid">
+                <!-- Dynamically populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       Compare Cars Section
+       ========================================================================== -->
+    <section class="compare-section" id="compare">
+        <div class="container">
+            <div class="section-title-wrap">
+                <h2 class="section-title">Compare <span>Legends</span></h2>
+                <p class="section-subtitle">Pit two automotive engineering icons against each other side-by-side to compare their performance, size, and legacy.</p>
+                <div class="gold-line"></div>
+            </div>
+            
+            <div class="compare-selectors-wrap glass-panel" style="padding: 30px; margin-bottom: 30px;">
+                <div class="compare-grid">
+                    <!-- Selector 1 -->
+                    <div class="compare-selector">
+                        <label for="car-select-1">Select Car One</label>
+                        <select id="car-select-1" class="compare-select-dropdown">
+                            <!-- Populated by JS -->
+                        </select>
+                        <div class="compare-card-preview" id="compare-preview-1">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                    
+                    <!-- Selector 2 -->
+                    <div class="compare-selector">
+                        <label for="car-select-2">Select Car Two</label>
+                        <select id="car-select-2" class="compare-select-dropdown">
+                            <!-- Populated by JS -->
+                        </select>
+                        <div class="compare-card-preview" id="compare-preview-2">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Comparison Matrix Table -->
+            <div class="compare-matrix-panel glass-panel" id="compare-matrix-container">
+                <table class="compare-table" id="compare-spec-table">
+                    <!-- Populated by JS -->
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       Restoration Workshop Section
+       ========================================================================== -->
+    <section class="restoration" id="restoration">
+        <div class="container">
+            <div class="section-title-wrap">
+                <h2 class="section-title">Restoration <span>Lab</span></h2>
+                <p class="section-subtitle">Experience the magic of preservation. Slide back and forth to see the meticulous body and engine overhaul of a 1954 Mercedes-Benz 300SL Gullwing.</p>
+                <div class="gold-line"></div>
+            </div>
+            
+            <div class="restoration-content">
+                <!-- Interactive draggable slider -->
+                <div class="slider-container" id="restoration-slider">
+                    <!-- Before Image (Restored/Prinstine is placed on top in standard sliders and adjusted, or vice-versa. Here, cleanedSL is after/top and rustySL is before/bottom) -->
+                    <div class="slider-before">
+                        <img class="slider-image" src="images/gullwing_barnfind.png" alt="Barnfind rusty 300SL Gullwing">
+                        <div class="slider-label label-before">Barn Find</div>
+                    </div>
+                    
+                    <div class="slider-after" id="slider-after-container">
+                        <img class="slider-image" src="images/gullwing_restored.png" alt="Restored pristine 300SL Gullwing">
+                        <div class="slider-label label-after">Restored</div>
+                    </div>
+                    
+                    <!-- Slider Handle bar -->
+                    <div class="slider-handle" id="slider-drag-handle">
+                        <div class="slider-handle-button">
+                            <!-- SVG double chevron slider symbol -->
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="8 5 1 12 8 19"/>
+                                <polyline points="16 5 23 12 16 19"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Text Panel -->
+                <div class="restoration-text-panel glass-panel" style="padding: 40px;">
+                    <h3>1954 Mercedes-Benz 300SL</h3>
+                    <p>
+                        This specific chassis #198.040 was discovered in an abandoned warehouse in 2021, untouched for 45 years. Our restoration team spent 3,200 hours completely rebuilding it to concours standards.
+                    </p>
+                    
+                    <div class="restoration-timeline-steps">
+                        <div class="step-item">
+                            <div class="step-num">1</div>
+                            <div class="step-details">
+                                <h4>Disassembly & Cataloging</h4>
+                                <p>Every single bolt, spacer, and panel was removed, labeled, and logged in our system.</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-num">2</div>
+                            <div class="step-details">
+                                <h4>Chassis & Paint Restoration</h4>
+                                <p>Rust remediation on the spaceframe chassis followed by hand-sanded primer and 6 coats of original Mercedes DB-180 Silver paint.</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-num">3</div>
+                            <div class="step-details">
+                                <h4>Engine Mechanical Overhaul</h4>
+                                <p>The matching-numbers 3.0L engine was stripped down and rebuilt, retaining 92% of original components.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       Automotive History Timeline Section
+       ========================================================================== -->
+    <section class="history-section" id="timeline">
+        <div class="container">
+            <div class="section-title-wrap">
+                <h2 class="section-title">Automotive <span>Milestones</span></h2>
+                <p class="section-subtitle">Walk through the key breakthroughs that transformed mechanical engineering and style over the course of a century.</p>
+                <div class="gold-line"></div>
+            </div>
+            
+            <div class="timeline">
+                <!-- 1886 -->
+                <div class="timeline-container left">
+                    <div class="timeline-content glass-panel">
+                        <div class="timeline-year">1886</div>
+                        <h3>The First Automobile</h3>
+                        <p>Karl Benz patents the Benz Patent-Motorwagen, widely regarded as the world's first production motor vehicle powered by an internal combustion engine.</p>
+                    </div>
+                </div>
+                
+                <!-- 1908 -->
+                <div class="timeline-container right">
+                    <div class="timeline-content glass-panel">
+                        <div class="timeline-year">1908</div>
+                        <h3>The Assembly Line</h3>
+                        <p>Henry Ford introduces the Ford Model T. By pioneering the moving assembly line in 1913, Ford makes car ownership affordable for middle-class citizens.</p>
+                    </div>
+                </div>
+                
+                <!-- 1938 -->
+                <div class="timeline-container left">
+                    <div class="timeline-content glass-panel">
+                        <div class="timeline-year">1938</div>
+                        <h3>The Aerodynamic Shift</h3>
+                        <p>Pre-war luxury cars introduce organic, teardrop shapes and aerodynamic wings, moving away from boxy carriage designs and establishing modern streamline styling.</p>
+                    </div>
+                </div>
+                
+                <!-- 1954 -->
+                <div class="timeline-container right">
+                    <div class="timeline-content glass-panel">
+                        <div class="timeline-year">1954</div>
+                        <h3>Gullwing doors & Direct Injection</h3>
+                        <p>The Mercedes-Benz 300SL Gullwing brings fuel injection from aviation to production sports cars, alongside a tubular spaceframe and icon doors.</p>
+                    </div>
+                </div>
+                
+                <!-- 1960s -->
+                <div class="timeline-container left">
+                    <div class="timeline-content glass-panel">
+                        <div class="timeline-year">1960s</div>
+                        <h3>The Muscle Car Era</h3>
+                        <p>American manufacturers drop massive, high-performance V8 motors into mid-size family coupes, giving birth to hot rods and muscle car culture.</p>
+                    </div>
+                </div>
+                
+                <!-- 1987 -->
+                <div class="timeline-container right">
+                    <div class="timeline-content glass-panel">
+                        <div class="timeline-year">1987</div>
+                        <h3>The 200 mph Barrier</h3>
+                        <p>The Ferrari F40 debuts. Made of carbon fiber and kevlar, it becomes the first street-legal production car to break the legendary 200 mph barrier.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       Spotlight / Detail Modal
+       ========================================================================== -->
+    <div class="modal" id="car-spotlight-modal">
+        <div class="modal-content-panel glass-panel">
+            <button class="modal-close-btn" id="modal-close-trigger" aria-label="Close modal">&times;</button>
+            <div class="modal-body" id="modal-body-container">
+                <!-- Populated dynamically by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+       Footer
+       ========================================================================== -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3 class="logo">
+                        <svg class="logo-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 8.5c.83 0 1.5-.67 1.5-1.5V5c0-1.1-.9-2-2-2H5.5C4.4 3 3.5 3.9 3.5 5v2c0 .83.67 1.5 1.5 1.5H6v7H4.5c-.83 0-1.5.67-1.5 1.5v1c0 .83.67 1.5 1.5 1.5H6c0 1.66 1.34 3 3 3s3-1.34 3-3h4c0 1.66 1.34 3 3 3s3-1.34 3-3h1.5c.83 0 1.5-.67 1.5-1.5v-1c0-.83-.67-1.5-1.5-1.5H19v-7h.01zM7.5 5h9c.28 0 .5.22.5.5s-.22.5-.5.5h-9c-.28 0-.5-.22-.5-.5s.22-.5.5-.5zm1.5 13.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5 0 1.5 1.5-.67 1.5-1.5 1.5zm9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5 0 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                        </svg>
+                        <span>L'Époque</span>
+                    </h3>
+                    <p>
+                        Preserving and celebrating automotive heritage. L'Époque Automobile is a private collection dedicated to teaching the engineering, history, and aesthetics of the automobile.
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Museum</h4>
+                    <ul>
+                        <li><a href="#map">Floor Map</a></li>
+                        <li><a href="#collection">Collection</a></li>
+                        <li><a href="#compare">Compare Engine</a></li>
+                        <li><a href="#restoration">Restoration Lab</a></li>
+                        <li><a href="#timeline">Milestones</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Visit Us</h4>
+                    <p>100 Heritage Blvd, Detroit, MI</p>
+                    <p>Open Tuesday - Sunday: 10 AM - 6 PM</p>
+                    <p>Email: contact@lepoqueautomobile.org</p>
+                    <div class="social-icons" style="margin-top: 20px;">
+                        <a href="#" class="social-icon" aria-label="Facebook">FB</a>
+                        <a href="#" class="social-icon" aria-label="Instagram">IG</a>
+                        <a href="#" class="social-icon" aria-label="Twitter">TW</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 L'Époque Automobile Museum. All rights reserved.</p>
+                <p>Designed for vintage car enthusiasts.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS Logic -->
+    <script src="app.js"></script>
+</body>
+</html>

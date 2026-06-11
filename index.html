@@ -52,6 +52,7 @@
                     <li><a href="#compare" id="nav-compare">Compare</a></li>
                     <li><a href="#hall-of-fame" id="nav-fame">Hall of Fame</a></li>
                     <li><a href="#restoration" id="nav-restoration">Restoration</a></li>
+                    <li><a href="#ads-archive" id="nav-ads">Advertisements</a></li>
                     <li><a href="#timeline" id="nav-timeline">Timeline</a></li>
                 </ul>
             </nav>
@@ -626,6 +627,261 @@
             </div>
         </div>
     </section>
+
+    <!-- ==========================================================================
+       Vintage Advertisement Archive Section
+       ========================================================================== -->
+    <section class="ads-section" id="ads-archive">
+        <div class="container">
+            <div class="section-title-wrap">
+                <h2 class="section-title">Original <span>Advertisements</span></h2>
+                <p class="section-subtitle">Travel back in time with vintage newspaper and magazine print ads celebrating the design, engineering, and spirit of these automotive icons.</p>
+                <div class="gold-line"></div>
+            </div>
+
+            <!-- Ads Control & Filters -->
+            <div class="ads-controls-wrap glass-panel">
+                <div class="ads-filters">
+                    <button class="ad-filter-btn active" data-ad-filter="all">All Eras</button>
+                    <button class="ad-filter-btn" data-ad-filter="pioneers">1900s–1920s</button>
+                    <button class="ad-filter-btn" data-ad-filter="golden-era">1930s–1950s</button>
+                    <button class="ad-filter-btn" data-ad-filter="speed-muscle">1960s+</button>
+                </div>
+                
+                <div class="print-effect-control">
+                    <span class="control-label">Halftone Print Screen</span>
+                    <button class="toggle-switch-btn" id="halftone-toggle-btn" aria-label="Toggle halftone print overlay">
+                        <span class="switch-slider"></span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Advertisements Grid -->
+            <div class="ads-grid" id="advertisements-grid">
+                <!-- Ad 1: Ford Model T (1908 - Early Pioneer Style) -->
+                <div class="ad-card glass-panel" data-brand="ford" data-era="pioneers" data-ad-id="ad-ford">
+                    <div class="ad-card-paper">
+                        <div class="halftone-overlay"></div>
+                        <div class="ad-header-editorial">
+                            <span class="editorial-left">VOL. XII ... NO. 45</span>
+                            <span class="editorial-title">THE MOTORING CHRONICLE</span>
+                            <span class="editorial-right">OCTOBER 1908</span>
+                        </div>
+                        <div class="ad-divider-thin"></div>
+                        <div class="ad-title-block">
+                            <h3 class="ad-main-title ford-title-font">FORD MODEL T</h3>
+                            <h4 class="ad-subtitle">The Universal Car</h4>
+                        </div>
+                        <div class="ad-body-columns">
+                            <div class="ad-media-container">
+                                <svg viewBox="0 0 100 50" class="ad-svg-art" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="100" height="50" fill="none"/>
+                                    <!-- Vintage ground line -->
+                                    <line x1="5" y1="42" x2="95" y2="42" stroke="currentColor" stroke-width="0.5" stroke-dasharray="1 1"/>
+                                    <!-- Wheels -->
+                                    <circle cx="28" cy="34" r="7.5" fill="none" stroke="currentColor" stroke-width="0.8"/>
+                                    <circle cx="28" cy="34" r="1.5" fill="none" stroke="currentColor"/>
+                                    <circle cx="72" cy="34" r="7.5" fill="none" stroke="currentColor" stroke-width="0.8"/>
+                                    <circle cx="72" cy="34" r="1.5" fill="none" stroke="currentColor"/>
+                                    <!-- Spokes -->
+                                    <path d="M 28 26.5 L 28 41.5 M 20.5 34 L 35.5 34 M 22.7 28.7 L 33.3 39.3 M 22.7 39.3 L 33.3 28.7" stroke="currentColor" stroke-width="0.3"/>
+                                    <path d="M 72 26.5 L 72 41.5 M 64.5 34 L 79.5 34 M 66.7 28.7 L 77.3 39.3 M 66.7 39.3 L 77.3 28.7" stroke="currentColor" stroke-width="0.3"/>
+                                    <!-- Body Carriage -->
+                                    <path d="M 12 28 L 18 28 L 22 18 L 38 18 L 41 24 L 54 24 L 58 14 L 78 14 L 82 24 L 88 24 L 90 28 L 92 28 L 92 34 L 86 34 M 12 28 L 12 34 L 20 34" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+                                    <!-- Mudguards/Fenders -->
+                                    <path d="M 10 32 Q 18 24 28 26 M 28 26 Q 38 28 44 34 M 60 34 Q 68 26 72 26 M 72 26 Q 82 26 90 32" fill="none" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/>
+                                    <!-- Seats & Details -->
+                                    <path d="M 40 24 L 40 18 M 60 24 L 60 14 M 58 24 L 58 14 M 76 24 L 76 14" stroke="currentColor" stroke-width="0.5"/>
+                                    <!-- Steering tiller -->
+                                    <line x1="38" y1="26" x2="48" y2="16" stroke="currentColor" stroke-width="0.8"/>
+                                    <line x1="46" y1="16" x2="50" y2="18" stroke="currentColor" stroke-width="0.8"/>
+                                    <!-- Lantern / Headlight -->
+                                    <rect x="88" y="21" width="3" height="4" fill="none" stroke="currentColor" stroke-width="0.6"/>
+                                    <path d="M 91 21 L 93 20 L 93 26 L 91 25 Z" fill="none" stroke="currentColor" stroke-width="0.6"/>
+                                </svg>
+                            </div>
+                            <div class="ad-copy-wrap">
+                                <p class="ad-editorial-paragraph"><span class="dropcap">H</span>ere is the car that solves the transport problem for every family. High in quality, low in price, simple to operate, and cheap to maintain.</p>
+                                <div class="ad-price-tag">$850</div>
+                                <p class="ad-center-tag">COMPLETE WITH TOP, WINDSHIELD, AND LAMPS</p>
+                            </div>
+                        </div>
+                        <div class="ad-footer-editorial">
+                            <span>FORD MOTOR COMPANY • DETROIT, MICH.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ad 2: Rolls-Royce Phantom II (1930 - High Class Deco Style) -->
+                <div class="ad-card glass-panel" data-brand="rolls-royce" data-era="golden-era" data-ad-id="ad-rolls">
+                    <div class="ad-card-paper">
+                        <div class="halftone-overlay"></div>
+                        <div class="ad-header-editorial">
+                            <span class="editorial-title" style="letter-spacing: 5px;">THE CONNOISSEUR</span>
+                            <span class="editorial-right">JUNE 1930</span>
+                        </div>
+                        <div class="ad-divider-double"></div>
+                        <div class="ad-title-block">
+                            <div class="royal-seal">
+                                <svg viewBox="0 0 24 24" class="seal-icon" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M12 2 L15 8 L22 9 L17 14 L18 21 L12 17 L6 21 L7 14 L2 9 L9 8 Z" stroke-linejoin="round"/>
+                                    <circle cx="12" cy="12" r="9"/>
+                                </svg>
+                                <span class="seal-text">BY APPOINTMENT</span>
+                            </div>
+                            <h3 class="ad-main-title rr-title-font">ROLLS-ROYCE</h3>
+                            <h4 class="ad-subtitle" style="font-style: italic; font-weight: 300;">The Best Car in the World</h4>
+                        </div>
+                        <div class="ad-body-columns">
+                            <div class="ad-media-container">
+                                <svg viewBox="0 0 100 50" class="ad-svg-art" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="100" height="50" fill="none"/>
+                                    <line x1="5" y1="42" x2="95" y2="42" stroke="currentColor" stroke-width="0.5"/>
+                                    <!-- Long chassis profile of Rolls-Royce -->
+                                    <!-- Wheels -->
+                                    <circle cx="25" cy="33" r="8" fill="none" stroke="currentColor" stroke-width="0.8"/>
+                                    <circle cx="25" cy="33" r="4" fill="none" stroke="currentColor" stroke-width="0.4"/>
+                                    <circle cx="75" cy="33" r="8" fill="none" stroke="currentColor" stroke-width="0.8"/>
+                                    <circle cx="75" cy="33" r="4" fill="none" stroke="currentColor" stroke-width="0.4"/>
+                                    <!-- Spokes -->
+                                    <circle cx="25" cy="33" r="2" fill="none" stroke="currentColor"/>
+                                    <circle cx="75" cy="33" r="2" fill="none" stroke="currentColor"/>
+                                    <!-- Long bonnet and cabin -->
+                                    <path d="M 8 26 L 14 26 L 14 16 L 18 16 L 18 26 L 44 26 L 46 18 L 68 18 L 76 22 L 86 22 L 91 26 L 93 30 L 93 33 L 83 33 M 8 26 L 8 33 L 17 33" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+                                    <!-- Mudguards -->
+                                    <path d="M 6 30 Q 14 20 25 22 Q 36 24 40 33 L 60 33 Q 66 22 75 22 Q 84 22 92 30" fill="none" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/>
+                                    <!-- Signature upright grill -->
+                                    <rect x="14" y="17" width="4" height="9" fill="none" stroke="currentColor" stroke-width="0.8"/>
+                                    <!-- Cabin windows -->
+                                    <path d="M 48 20 L 56 20 L 56 25 L 48 25 Z M 58 20 L 66 20 L 65 25 L 58 25 Z" fill="none" stroke="currentColor" stroke-width="0.5"/>
+                                    <!-- Spare wheel mounted on side -->
+                                    <circle cx="36" cy="27" r="6" fill="none" stroke="currentColor" stroke-width="0.8"/>
+                                    <!-- Spirit of Ecstasy wing detail -->
+                                    <path d="M 14 16 Q 12 13 10 14" fill="none" stroke="currentColor" stroke-width="0.5"/>
+                                </svg>
+                            </div>
+                            <div class="ad-copy-wrap">
+                                <p class="ad-editorial-paragraph">The Phantom II represents the ultimate standard of luxurious quietness, chassis durability, and effortless control. Custom-built to the requirements of the discriminating motorist.</p>
+                            </div>
+                        </div>
+                        <div class="ad-footer-editorial" style="border-top: 1px solid currentColor; padding-top: 6px;">
+                            <span>ROLLS-ROYCE LTD. • 14-15 CONDUIT ST. LONDON, W.1</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ad 3: Mercedes-Benz 300SL (1954 - Mid-Century Modern German Style) -->
+                <div class="ad-card glass-panel" data-brand="mercedes" data-era="golden-era" data-ad-id="ad-mercedes">
+                    <div class="ad-card-paper">
+                        <div class="halftone-overlay"></div>
+                        <div class="ad-header-editorial">
+                            <span class="editorial-left">MOTOR SPORT</span>
+                            <span class="editorial-right">SEPTEMBER 1954</span>
+                        </div>
+                        <div class="ad-divider-bold"></div>
+                        <div class="ad-title-block">
+                            <h3 class="ad-main-title merc-title-font">MERCEDES-BENZ</h3>
+                            <h4 class="ad-subtitle" style="font-weight: 800; letter-spacing: 2px; text-transform: uppercase;">300 SL GULLWING</h4>
+                        </div>
+                        <div class="ad-body-columns">
+                            <div class="ad-media-container">
+                                <svg viewBox="0 0 100 50" class="ad-svg-art" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="100" height="50" fill="none"/>
+                                    <line x1="5" y1="42" x2="95" y2="42" stroke="currentColor" stroke-width="0.5"/>
+                                    <!-- Mercedes 300SL Gullwing silhouette -->
+                                    <!-- Wheels -->
+                                    <circle cx="26" cy="33" r="7" fill="none" stroke="currentColor" stroke-width="0.8"/>
+                                    <circle cx="26" cy="33" r="3" fill="none" stroke="currentColor" stroke-width="0.4"/>
+                                    <circle cx="74" cy="33" r="7" fill="none" stroke="currentColor" stroke-width="0.8"/>
+                                    <circle cx="74" cy="33" r="3" fill="none" stroke="currentColor" stroke-width="0.4"/>
+                                    <!-- Low aerodynamic body -->
+                                    <path d="M 8 30 Q 10 26 18 26 L 36 24 C 42 16, 58 16, 64 24 L 84 26 Q 90 26 92 30 L 92 33 L 81 33 M 8 30 L 8 33 L 19 33" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+                                    <!-- Mudguards arches -->
+                                    <path d="M 19 33 A 7 7 0 0 1 33 33 M 67 33 A 7 7 0 0 1 81 33" fill="none" stroke="currentColor" stroke-width="0.8"/>
+                                    <!-- Open Gullwing doors outline (showing one door opening upwards) -->
+                                    <path d="M 46 22 L 44 10 L 58 10 L 56 22 Z" fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="2 1"/>
+                                    <!-- Cabin windows -->
+                                    <path d="M 40 24 L 46 20 L 54 20 L 60 24 Z" fill="none" stroke="currentColor" stroke-width="0.5"/>
+                                    <!-- Triple-pointed star emblem -->
+                                    <circle cx="88" cy="27" r="1.8" fill="none" stroke="currentColor" stroke-width="0.4"/>
+                                    <path d="M 88 25.2 L 88 27 M 88 27 L 86.4 27.9 M 88 27 L 89.6 27.9" stroke="currentColor" stroke-width="0.4"/>
+                                </svg>
+                            </div>
+                            <div class="ad-copy-wrap">
+                                <p class="ad-editorial-paragraph">The new star of sports cars. Direct fuel injection, high-tensile tubular spaceframe, and racing breeding bring Le Mans performance directly to the road.</p>
+                                <div class="specs-grid-mini">
+                                    <span class="spec-cell">240 HP</span>
+                                    <span class="spec-cell">163 MPH</span>
+                                    <span class="spec-cell">0-60 IN 7.2s</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ad-footer-editorial">
+                            <span>DAIMLER-BENZ A.G. • STUTTGART-UNTERTÜRKHEIM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ad 4: Jaguar E-Type (1961 - Sleek Swinging 60s Style) -->
+                <div class="ad-card glass-panel" data-brand="jaguar" data-era="speed-muscle" data-ad-id="ad-jaguar">
+                    <div class="ad-card-paper">
+                        <div class="halftone-overlay"></div>
+                        <div class="ad-header-editorial">
+                            <span class="editorial-left">THE AUTOCAR</span>
+                            <span class="editorial-right">MARCH 1961</span>
+                        </div>
+                        <div class="ad-divider-thin"></div>
+                        <div class="ad-title-block" style="text-align: center;">
+                            <h3 class="ad-main-title jag-title-font">JAGUAR</h3>
+                            <h4 class="ad-subtitle" style="font-weight: 300; letter-spacing: 4px; font-style: italic;">Grace... Space... Pace</h4>
+                        </div>
+                        <div class="ad-body-columns">
+                            <div class="ad-media-container">
+                                <svg viewBox="0 0 100 50" class="ad-svg-art" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="100" height="50" fill="none"/>
+                                    <line x1="5" y1="42" x2="95" y2="42" stroke="currentColor" stroke-width="0.5"/>
+                                    <!-- Jaguar E-Type curvilinear profile -->
+                                    <!-- Wheels -->
+                                    <circle cx="26" cy="33" r="6.8" fill="none" stroke="currentColor" stroke-width="0.8"/>
+                                    <circle cx="26" cy="33" r="2.5" fill="none" stroke="currentColor" stroke-width="0.4"/>
+                                    <circle cx="72" cy="33" r="6.8" fill="none" stroke="currentColor" stroke-width="0.8"/>
+                                    <circle cx="72" cy="33" r="2.5" fill="none" stroke="currentColor" stroke-width="0.4"/>
+                                    <!-- Fastback cabin -->
+                                    <path d="M 6 31 C 8 28, 16 28, 20 28 L 48 26 C 54 18, 70 17, 78 26 L 88 28 C 91 28, 93 29, 94 31 L 94 33 L 79 33 M 6 31 L 6 33 L 19 33" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+                                    <!-- Mudguards arches -->
+                                    <path d="M 19 33 A 6.8 6.8 0 0 1 33 33 M 65 33 A 6.8 6.8 0 0 1 79 33" fill="none" stroke="currentColor" stroke-width="0.8"/>
+                                    <!-- Curvy wrap-around windows -->
+                                    <path d="M 50 25 L 58 20 C 64 20, 68 22, 72 25 Z" fill="none" stroke="currentColor" stroke-width="0.5"/>
+                                    <!-- Front bumper and exhaust -->
+                                    <path d="M 94 31 L 96 31" stroke="currentColor" stroke-width="0.8"/>
+                                    <path d="M 5 33 L 3 33" stroke="currentColor" stroke-width="0.6"/>
+                                </svg>
+                            </div>
+                            <div class="ad-copy-wrap" style="text-align: center;">
+                                <p class="ad-editorial-paragraph">The E-Type Gran Turismo. Combines beauty of line with racing stamina. Developed from the victorious D-type racing cars to offer the ultimate in high-speed luxury motoring.</p>
+                                <div class="ad-price-tag" style="font-size: 1.1rem; border: none; margin: 5px 0;">£1,480 (Basic)</div>
+                            </div>
+                        </div>
+                        <div class="ad-footer-editorial" style="border-top: 1px solid currentColor; padding-top: 6px;">
+                            <span>JAGUAR CARS LTD. • COVENTRY, ENGLAND</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       Zoomable Ad Modal (Press Proof Zoom)
+       ========================================================================== -->
+    <div class="modal" id="ad-zoom-modal">
+        <div class="modal-content-panel glass-panel ad-zoom-content">
+            <button class="modal-close-btn" id="ad-zoom-close-trigger" aria-label="Close modal">&times;</button>
+            <div class="ad-zoom-body" id="ad-zoom-body-container">
+                <!-- Populated dynamically by JS -->
+            </div>
+        </div>
+    </div>
 
     <!-- ==========================================================================
        Automotive History Timeline Section

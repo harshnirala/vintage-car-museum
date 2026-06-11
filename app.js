@@ -426,6 +426,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initVisitorCounter();
     initFeaturedCar();
     initTimelineInteractivity();
+    initAdsArchive();
 });
 
 function initVisitorCounter() {
@@ -1293,4 +1294,100 @@ function initTimelineInteractivity() {
             content.classList.toggle("expanded");
         });
     });
+}
+
+function initAdsArchive() {
+    const grid = document.getElementById("advertisements-grid");
+    if (!grid) return;
+
+    const cards = grid.querySelectorAll(".ad-card");
+    const filterBtns = document.querySelectorAll(".ad-filter-btn");
+    const halftoneToggle = document.getElementById("halftone-toggle-btn");
+    
+    // 1. Era Filtering Logic
+    filterBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            filterBtns.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            
+            const filterValue = btn.getAttribute("data-ad-filter");
+            
+            grid.style.opacity = "0.3";
+            setTimeout(() => {
+                cards.forEach(card => {
+                    if (filterValue === "all" || card.getAttribute("data-era") === filterValue) {
+                        card.style.display = "flex";
+                    } else {
+                        card.style.display = "none";
+                    }
+                });
+                grid.style.opacity = "1";
+            }, 150);
+        });
+    });
+
+    // 2. Halftone Printing Press Toggle
+    if (halftoneToggle) {
+        halftoneToggle.addEventListener("click", () => {
+            const isActive = halftoneToggle.classList.toggle("active");
+            cards.forEach(card => {
+                if (isActive) {
+                    card.classList.add("halftone-active");
+                } else {
+                    card.classList.remove("halftone-active");
+                }
+            });
+        });
+    }
+
+    // 3. Magnification Zoom Modal
+    const adModal = document.getElementById("ad-zoom-modal");
+    const closeBtn = document.getElementById("ad-zoom-close-trigger");
+    const container = document.getElementById("ad-zoom-body-container");
+
+    if (adModal && closeBtn && container) {
+        cards.forEach(card => {
+            card.addEventListener("click", () => {
+                const originalPaper = card.querySelector(".ad-card-paper");
+                if (!originalPaper) return;
+
+                // Clone the paper and add active classes
+                const clonedPaper = originalPaper.cloneNode(true);
+                
+                // If halftone toggle is active, also add halftone-active to cloned paper
+                const isHalftoneActive = halftoneToggle && halftoneToggle.classList.contains("active");
+                if (isHalftoneActive) {
+                    clonedPaper.classList.add("halftone-active");
+                } else {
+                    clonedPaper.classList.remove("halftone-active");
+                }
+
+                container.innerHTML = "";
+                container.appendChild(clonedPaper);
+                
+                // Open modal
+                adModal.classList.add("active");
+            });
+        });
+
+        // Close handlers
+        const closeAdModal = () => {
+            adModal.classList.remove("active");
+            setTimeout(() => {
+                container.innerHTML = "";
+            }, 300);
+        };
+
+        closeBtn.addEventListener("click", closeAdModal);
+        adModal.addEventListener("click", (e) => {
+            if (e.target === adModal) {
+                closeAdModal();
+            }
+        });
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && adModal.classList.contains("active")) {
+                closeAdModal();
+            }
+        });
+    }
 }

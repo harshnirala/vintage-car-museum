@@ -13,8 +13,52 @@
     
     <!-- Favicon -->
     <link rel="shortcut icon" href="https://www.wix.com/favicon.ico" type="image/x-icon">
-</head>
-<body>
+<body class="loading-active">
+
+    <!-- ==========================================================================
+       Preloader Overlay Screen
+       ========================================================================== -->
+    <div id="preloader" class="preloader-overlay">
+        <div class="preloader-content">
+            <h1 class="preloader-title">L'Époque Automobile</h1>
+            
+            <div class="preloader-spinner-container">
+                <!-- Rotating Vintage Wire-Spoke Wheel SVG -->
+                <svg viewBox="0 0 100 100" class="preloader-wheel-svg" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="var(--gold)" stroke-width="2.5"/>
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="var(--gold)" stroke-width="0.8" stroke-dasharray="1 2"/>
+                    <circle cx="50" cy="50" r="9" fill="none" stroke="var(--gold)" stroke-width="2"/>
+                    <circle cx="50" cy="50" r="3" fill="var(--gold)"/>
+                    
+                    <!-- Spokes -->
+                    <line x1="50" y1="5" x2="50" y2="41" stroke="var(--gold)" stroke-width="0.5"/>
+                    <line x1="50" y1="59" x2="50" y2="95" stroke="var(--gold)" stroke-width="0.5"/>
+                    <line x1="5" y1="50" x2="41" y2="50" stroke="var(--gold)" stroke-width="0.5"/>
+                    <line x1="59" y1="50" x2="95" y2="50" stroke="var(--gold)" stroke-width="0.5"/>
+                    
+                    <line x1="18.2" y1="18.2" x2="43.6" y2="43.6" stroke="var(--gold)" stroke-width="0.5"/>
+                    <line x1="56.4" y1="56.4" x2="81.8" y2="81.8" stroke="var(--gold)" stroke-width="0.5"/>
+                    <line x1="18.2" y1="81.8" x2="43.6" y2="56.4" stroke="var(--gold)" stroke-width="0.5"/>
+                    <line x1="56.4" y1="43.6" x2="81.8" y2="18.2" stroke="var(--gold)" stroke-width="0.5"/>
+                    
+                    <line x1="32.7" y1="7.3" x2="47.8" y2="41.2" stroke="var(--gold)" stroke-width="0.4"/>
+                    <line x1="67.3" y1="92.7" x2="52.2" y2="58.8" stroke="var(--gold)" stroke-width="0.4"/>
+                    <line x1="7.3" y1="32.7" x2="41.2" y2="47.8" stroke="var(--gold)" stroke-width="0.4"/>
+                    <line x1="92.7" y1="67.3" x2="58.8" y2="52.2" stroke="var(--gold)" stroke-width="0.4"/>
+                    
+                    <line x1="67.3" y1="7.3" x2="52.2" y2="41.2" stroke="var(--gold)" stroke-width="0.4"/>
+                    <line x1="32.7" y1="92.7" x2="47.8" y2="58.8" stroke="var(--gold)" stroke-width="0.4"/>
+                    <line x1="92.7" y1="32.7" x2="58.8" y2="47.8" stroke="var(--gold)" stroke-width="0.4"/>
+                    <line x1="7.3" y1="67.3" x2="41.2" y2="52.2" stroke="var(--gold)" stroke-width="0.4"/>
+                </svg>
+            </div>
+            
+            <div class="preloader-status">
+                <span class="preloader-text">Loading Collection</span>
+                <span class="preloader-dots"></span>
+            </div>
+        </div>
+    </div>
 
     <!-- ==========================================================================
        Header & Navigation

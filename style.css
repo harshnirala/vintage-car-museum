@@ -468,6 +468,14 @@ nav a:hover::after, nav a.active::after {
     position: relative;
     z-index: 4;
     width: 100%;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+body.entrance-active .hero-content {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .hero-header-flex {
@@ -3266,6 +3274,115 @@ footer {
     .hall-of-fame {
         padding: 60px 0;
     }
+}
+
+/* ==========================================================================
+   Preloader / Welcome Screen
+   ========================================================================== */
+.preloader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    background: #080809;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.8s ease;
+    visibility: visible;
+}
+
+.preloader-overlay.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.preloader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+}
+
+.preloader-title {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    margin: 0;
+    text-shadow: 0 0 15px rgba(197, 168, 92, 0.2);
+    animation: preloaderTitlePulse 2.5s ease-in-out infinite alternate;
+}
+
+.preloader-spinner-container {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.preloader-wheel-svg {
+    width: 100%;
+    height: 100%;
+    animation: preloaderWheelRotate 4s linear infinite;
+    filter: drop-shadow(0 0 8px rgba(197, 168, 92, 0.45));
+}
+
+.preloader-status {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.preloader-dots::after {
+    content: '';
+    animation: preloaderDotsPulse 1.5s steps(4, end) infinite;
+}
+
+/* Animations */
+@keyframes preloaderWheelRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes preloaderTitlePulse {
+    0% {
+        opacity: 0.85;
+        letter-spacing: 5.5px;
+    }
+    100% {
+        opacity: 1;
+        letter-spacing: 7px;
+    }
+}
+
+@keyframes preloaderDotsPulse {
+    0% { content: ''; }
+    25% { content: '.'; }
+    50% { content: '..'; }
+    75%, 100% { content: '...'; }
+}
+
+/* Prevent body scrolling when loading */
+body.loading-active {
+    overflow: hidden !important;
 }
 
 

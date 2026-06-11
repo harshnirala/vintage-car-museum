@@ -1391,3 +1391,23 @@ function initAdsArchive() {
         });
     }
 }
+
+// ==========================================================================
+// Preloader Dismissal & Entrance Animations
+// ==========================================================================
+function dismissPreloader() {
+    const preloader = document.getElementById("preloader");
+    if (preloader) {
+        setTimeout(() => {
+            preloader.classList.add("fade-out");
+            document.body.classList.remove("loading-active");
+            document.body.classList.add("entrance-active");
+        }, 1300);
+    }
+}
+
+if (document.readyState === "complete") {
+    dismissPreloader();
+} else {
+    window.addEventListener("load", dismissPreloader);
+}

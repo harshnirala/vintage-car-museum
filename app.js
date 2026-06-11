@@ -2,6 +2,57 @@
    Dataset of Museum Vehicles & Halls
    ========================================================================== */
 const carsData = {
+    "benz-patent": {
+        id: "benz-patent",
+        name: "Benz Patent-Motorwagen",
+        year: 1886,
+        category: "pioneers",
+        country: "Germany",
+        flag: "🇩🇪",
+        image: null,
+        engine: "954cc Single-Cylinder",
+        power: "0.75 HP",
+        powerVal: 1,
+        topSpeed: "10 mph",
+        speedVal: 10,
+        transmission: "Single-speed belt drive",
+        weight: "584 lbs",
+        weightVal: 584,
+        description: "The world's first production automobile. Patented by Karl Benz in 1886, the Patent-Motorwagen was powered by a rear-mounted single-cylinder four-stroke engine and featured a steel-tube chassis with wire wheels.",
+        hall: "Pioneers Gallery",
+        timeline: [
+            { year: "1885", event: "Karl Benz builds the first prototype of the three-wheeled Motorwagen." },
+            { year: "1886", event: "Patent DRP 37435 is granted on January 29, officially registering the automobile." },
+            { year: "1888", event: "Bertha Benz makes the historic first long-distance road trip (120 miles) to market the car." }
+        ],
+        soundSettings: {
+            idleFreq: 8,
+            revFreq: 22,
+            soundType: "sawtooth",
+            filterFreq: 80
+        },
+        blueprintSvg: `
+            <svg viewBox="0 0 100 60" class="timeline-vector-svg" xmlns="http://www.w3.org/2000/svg">
+                <rect width="100" height="60" fill="rgba(197, 168, 92, 0.02)" stroke="rgba(197, 168, 92, 0.2)" stroke-dasharray="2 2"/>
+                <circle cx="35" cy="40" r="14" fill="none" stroke="var(--gold)" stroke-width="0.8"/>
+                <circle cx="35" cy="40" r="1.5" fill="none" stroke="var(--gold)"/>
+                <line x1="35" y1="40" x2="35" y2="26" stroke="var(--gold)" stroke-width="0.4"/>
+                <line x1="35" y1="40" x2="35" y2="54" stroke="var(--gold)" stroke-width="0.4"/>
+                <line x1="35" y1="40" x2="21" y2="40" stroke="var(--gold)" stroke-width="0.4"/>
+                <line x1="35" y1="40" x2="49" y2="40" stroke="var(--gold)" stroke-width="0.4"/>
+                <line x1="35" y1="40" x2="25" y2="30" stroke="var(--gold)" stroke-width="0.4"/>
+                <line x1="35" y1="40" x2="45" y2="50" stroke="var(--gold)" stroke-width="0.4"/>
+                <line x1="35" y1="40" x2="45" y2="30" stroke="var(--gold)" stroke-width="0.4"/>
+                <line x1="35" y1="40" x2="25" y2="50" stroke="var(--gold)" stroke-width="0.4"/>
+                <circle cx="75" cy="45" r="9" fill="none" stroke="var(--gold)" stroke-width="0.8"/>
+                <circle cx="75" cy="45" r="1" fill="none" stroke="var(--gold)"/>
+                <path d="M 35 40 L 55 40 L 75 45 M 55 40 L 52 24 L 38 24 Z" fill="none" stroke="var(--gold)" stroke-width="1.2"/>
+                <path d="M 75 45 L 70 20 L 65 20" fill="none" stroke="var(--gold)" stroke-width="0.8"/>
+                <ellipse cx="45" cy="30" rx="3" ry="5" fill="none" stroke="var(--gold)" stroke-width="0.8"/>
+                <text x="50" y="55" font-family="Cinzel" font-size="5" fill="var(--gold)" text-anchor="middle">BENZ PATENT SYSTEM • 1886</text>
+            </svg>
+        `
+    },
     "ford-t": {
         id: "ford-t",
         name: "Ford Model T",
@@ -127,7 +178,7 @@ const hallsData = {
     "pioneers": {
         title: "Pioneers Gallery",
         desc: "The dawn of mobility. Explore the earliest brass-era carriages that replaced horses and introduced internal combustion to the masses.",
-        cars: ["ford-t"]
+        cars: ["benz-patent", "ford-t"]
     },
     "golden-era": {
         title: "Golden Era Gallery",
@@ -374,6 +425,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initHeroSoundToggle();
     initVisitorCounter();
     initFeaturedCar();
+    initTimelineInteractivity();
 });
 
 function initVisitorCounter() {
@@ -957,15 +1009,17 @@ function openCarSpotlight(carId) {
     
     const mediaHTML = car.image
         ? `<img class="modal-main-img" src="${car.image}" alt="${car.name}">`
-        : `<div class="modal-main-img modal-main-img-placeholder">
-             <svg viewBox="0 0 100 40" class="placeholder-car-svg" xmlns="http://www.w3.org/2000/svg">
-                 <path d="M10 28 C 10 28, 15 28, 17 28 C 19 25, 23 25, 25 28 C 35 28, 65 28, 75 28 C 77 25, 81 25, 83 28 C 85 28, 90 28, 90 28 C 92 28, 93 27, 93 25 C 93 22, 91 18, 86 16 C 82 14, 75 14, 70 14 C 65 14, 60 10, 50 10 C 40 10, 35 12, 30 14 C 20 16, 12 18, 10 22 C 8 24, 8 28, 10 28 Z" fill="none" stroke="#c5a85c" stroke-width="1.2" stroke-linejoin="round"/>
-                 <circle cx="21" cy="28" r="3.5" fill="none" stroke="#c5a85c" stroke-width="1.2"/>
-                 <circle cx="79" cy="28" r="3.5" fill="none" stroke="#c5a85c" stroke-width="1.2"/>
-                 <path d="M38 14 L42 11 L60 11 L66 14" fill="none" stroke="#c5a85c" stroke-width="0.8" stroke-dasharray="2 1"/>
-             </svg>
-             <span class="modal-placeholder-tag">Database Registry</span>
-           </div>`;
+        : (car.blueprintSvg
+            ? `<div class="modal-main-img modal-main-img-blueprint">${car.blueprintSvg}</div>`
+            : `<div class="modal-main-img modal-main-img-placeholder">
+                 <svg viewBox="0 0 100 40" class="placeholder-car-svg" xmlns="http://www.w3.org/2000/svg">
+                     <path d="M10 28 C 10 28, 15 28, 17 28 C 19 25, 23 25, 25 28 C 35 28, 65 28, 75 28 C 77 25, 81 25, 83 28 C 85 28, 90 28, 90 28 C 92 28, 93 27, 93 25 C 93 22, 91 18, 86 16 C 82 14, 75 14, 70 14 C 65 14, 60 10, 50 10 C 40 10, 35 12, 30 14 C 20 16, 12 18, 10 22 C 8 24, 8 28, 10 28 Z" fill="none" stroke="#c5a85c" stroke-width="1.2" stroke-linejoin="round"/>
+                     <circle cx="21" cy="28" r="3.5" fill="none" stroke="#c5a85c" stroke-width="1.2"/>
+                     <circle cx="79" cy="28" r="3.5" fill="none" stroke="#c5a85c" stroke-width="1.2"/>
+                     <path d="M38 14 L42 11 L60 11 L66 14" fill="none" stroke="#c5a85c" stroke-width="0.8" stroke-dasharray="2 1"/>
+                 </svg>
+                 <span class="modal-placeholder-tag">Database Registry</span>
+               </div>`);
 
     container.innerHTML = `
         <div class="modal-media-col">
@@ -1225,5 +1279,18 @@ function initFeaturedCar() {
             soundText.innerText = "Listen to Engine";
             playIcon.innerHTML = `<polygon points="5 3 19 12 5 21"/>`;
         }
+    });
+}
+
+function initTimelineInteractivity() {
+    const contents = document.querySelectorAll(".timeline-content");
+    contents.forEach(content => {
+        content.addEventListener("click", (e) => {
+            // Prevent collapsing when clicking inside the expanded tray
+            if (e.target.closest(".timeline-expanded-tray")) {
+                return;
+            }
+            content.classList.toggle("expanded");
+        });
     });
 }
